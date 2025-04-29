@@ -28,6 +28,10 @@ RUN	rm -rf /lib/apk/db /var/cache/apk/ /tmp/* /root/.npm /root/.cache/node /opt/
 
 # 2. Start with a new clean image and copy over the added files into a single layer
 FROM node:${NODE_VERSION}-alpine
+
+# ─── Install FFmpeg so we can trim video silence ───
+RUN apk add --no-cache ffmpeg
+
 COPY --from=builder / /
 
 # Delete this folder to make the base image backward compatible to be able to build older version images
